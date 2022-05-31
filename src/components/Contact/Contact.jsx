@@ -6,8 +6,9 @@ export default class Contact extends Component {
     const { name, number } = this.props;
     return (
       <li className={s.row}>
-        <span>{name}:</span>
-        <span>{number}</span>
+        <span className={s.name}>{name}:</span>
+        <span className={s.number}>{number}</span>
+        <button className={s.buttonDelete}>x</button>
       </li>
     );
   }
