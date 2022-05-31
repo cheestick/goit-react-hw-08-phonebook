@@ -5,10 +5,19 @@ import ContactList from './ContactList';
 class App extends Component {
   state = {
     contacts: [],
-    name: '',
+    filter: '',
+  };
+
+  addNewContact = newContact => {
+    console.log(this.state.contacts);
+    this.setState(state => ({
+      contacts: [...state.contacts, newContact],
+    }));
   };
 
   render() {
+    const { contacts } = this.state;
+
     return (
       <div
         style={{
@@ -26,10 +35,10 @@ class App extends Component {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactForm />
+        <ContactForm onSubmit={this.addNewContact} />
 
         <h2>Contacts</h2>
-        <ContactList />
+        <ContactList contacts={contacts} />
       </div>
     );
   }

@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 
+const INITIAL_STATE = {
+  name: '',
+  number: '',
+};
+
 class ContactForm extends Component {
   constructor(props) {
     super(props);
+    this.state = { ...INITIAL_STATE };
     this.inputNameID = `name-${nanoid()}`;
   }
 
   addNewContact = e => {
     e.preventDefault();
+    const { onSubmit } = this.props;
+    const { name } = this.state;
+    const id = nanoid();
+    onSubmit({ id, name });
+    this.reset();
   };
 
   handleChange = e => {
-    const { value, name } = e.currentTarget;
-    console.log(value, name);
+    const { name, value } = e.currentTarget;
+    this.setState({ [name]: value });
+  };
+
+  reset = () => {
+    this.setState({ ...INITIAL_STATE });
   };
 
   render() {
