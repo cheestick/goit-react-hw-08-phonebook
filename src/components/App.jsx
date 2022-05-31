@@ -13,10 +13,15 @@ class App extends Component {
       <div
         style={{
           height: '100vh',
+          width: 500,
+          margin: '0 auto',
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
+          alignItems: 'felx-start',
+          gap: 12,
+          fontSize: 24,
+          lineHeight: 1,
           color: '#010101',
         }}
       >
