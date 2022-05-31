@@ -8,10 +8,10 @@ class App extends Component {
     filter: '',
   };
 
-  addNewContact = newContact => {
+  updateContactList = newContact => {
     console.log(this.state.contacts);
-    this.setState(state => ({
-      contacts: [...state.contacts, newContact],
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
     }));
   };
 
@@ -35,7 +35,7 @@ class App extends Component {
         }}
       >
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.addNewContact} />
+        <ContactForm onSubmit={this.updateContactList} />
 
         <h2>Contacts</h2>
         <ContactList contacts={contacts} />

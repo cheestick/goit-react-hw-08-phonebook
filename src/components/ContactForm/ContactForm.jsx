@@ -32,7 +32,7 @@ class ContactForm extends Component {
   };
 
   render() {
-    const { name } = this.props;
+    const { name } = this.state;
     return (
       <form autoComplete="off" onSubmit={this.addNewContact}>
         <label htmlFor={this.inputNameID}></label>
