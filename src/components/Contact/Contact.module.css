@@ -1,4 +1,5 @@
 .row {
   display: flex;
   gap: 12px;
+  text-transform: capitalize;
 }

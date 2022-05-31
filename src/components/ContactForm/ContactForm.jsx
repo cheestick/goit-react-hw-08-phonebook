@@ -61,7 +61,9 @@ class ContactForm extends Component {
           required
         />
 
-        <button type="submit">Add contact</button>
+        <button className={s.button} type="submit">
+          Add contact
+        </button>
       </form>
     );
   }

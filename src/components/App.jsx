@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ContactForm from 'components/ContactForm';
 import ContactList from './ContactList';
+import Filter from './Filter';
 
 const INITIAL_STATE = {
   contacts: [
@@ -22,8 +23,23 @@ class App extends Component {
     }));
   };
 
-  render() {
+  updateFilter = newValue => {
+    this.setState({ filter: newValue });
+  };
+
+  filterContacts = filter => {
+    const normalizedFilter = filter.toLowerCase();
     const { contacts } = this.state;
+    return normalizedFilter === ''
+      ? contacts
+      : contacts.filter(contact =>
+          contact.name.toLowerCase().includes(normalizedFilter)
+        );
+  };
+
+  render() {
+    const { filter } = this.state;
+    const filteredContacts = this.filterContacts(filter);
 
     return (
       <div
@@ -45,7 +61,8 @@ class App extends Component {
         <ContactForm onSubmit={this.updateContactList} />
 
         <h2>Contacts</h2>
-        <ContactList contacts={contacts} />
+        <Filter value={filter} onChange={this.updateFilter} />
+        <ContactList contacts={filteredContacts} />
       </div>
     );
   }
