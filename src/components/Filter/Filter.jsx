@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 
 export default class Filter extends Component {
   filterID = nanoid();
@@ -25,3 +26,8 @@ export default class Filter extends Component {
     );
   }
 }
+
+Filter.propTypes = {
+  filter: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+};

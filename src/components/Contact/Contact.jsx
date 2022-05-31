@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './Contact.module.css';
 
 export default class Contact extends Component {
@@ -19,3 +20,10 @@ export default class Contact extends Component {
     );
   }
 }
+
+Contact.propTypes = {
+  onDeleteContact: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+};

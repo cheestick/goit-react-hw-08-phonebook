@@ -32,7 +32,6 @@ class App extends Component {
       if (contact.id !== contactID) updatedContacts.push(contact);
       return updatedContacts;
     }, []);
-    console.log(updatedContacts);
 
     this.setState({
       contacts: updatedContacts,
