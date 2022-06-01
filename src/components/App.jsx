@@ -28,10 +28,9 @@ class App extends Component {
 
   onDeleteContact = contactID => {
     const { contacts } = this.state;
-    const updatedContacts = contacts.reduce((updatedContacts, contact) => {
-      if (contact.id !== contactID) updatedContacts.push(contact);
-      return updatedContacts;
-    }, []);
+    const updatedContacts = contacts.filter(
+      contact => contact.id !== contactID
+    );
 
     this.setState({
       contacts: updatedContacts,
@@ -48,9 +47,9 @@ class App extends Component {
     return contacts.find(({ name }) => name.toLowerCase() === newContactName);
   };
 
-  filterContacts = filter => {
+  filterContacts = () => {
+    const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
-    const { contacts } = this.state;
     return normalizedFilter === ''
       ? contacts
       : contacts.filter(contact =>
