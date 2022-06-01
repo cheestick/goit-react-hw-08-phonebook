@@ -28,6 +28,6 @@ export default class Filter extends Component {
 }
 
 Filter.propTypes = {
-  filter: PropTypes.string,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

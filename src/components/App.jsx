@@ -81,7 +81,7 @@ class App extends Component {
         <ContactForm onSubmit={this.updateContactList} />
 
         <h2>Contacts</h2>
-        <Filter value={filter} onChange={this.updateFilter} />
+        <Filter filter={filter} onChange={this.updateFilter} />
         <ContactList
           contacts={filteredContacts}
           onDeleteContact={this.onDeleteContact}
