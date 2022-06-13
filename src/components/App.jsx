@@ -10,7 +10,6 @@ const App = () => {
 
   useEffect(() => {
     db.updatePhonebook(contacts);
-    console.log('upd -> ', contacts);
   }, [contacts]);
 
   const updateContactList = newContact => {
