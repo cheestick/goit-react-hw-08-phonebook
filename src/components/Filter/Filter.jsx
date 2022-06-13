@@ -7,9 +7,9 @@ export default function Filter({ filter, onChange }) {
 
   return (
     <>
-      <label htmlFor={filterID}>Find contact by name</label>
+      <label htmlFor={filterID.current}>Find contact by name</label>
       <input
-        id={filterID}
+        id={filterID.current}
         type="text"
         name="filter"
         value={filter}
