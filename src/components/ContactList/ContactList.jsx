@@ -1,25 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Contact from 'components/Contact/Contact';
 import PropTypes from 'prop-types';
 import s from './ContactList.module.css';
 
-export default class ContactList extends Component {
-  render() {
-    const { contacts, onDeleteContact } = this.props;
-    return (
-      <ul className={s.contactList}>
-        {contacts.map(({ id, name, number }) => (
-          <Contact
-            key={id}
-            id={id}
-            name={name}
-            number={number}
-            onDeleteContact={onDeleteContact}
-          />
-        ))}
-      </ul>
-    );
-  }
+export default function ContactList({ contacts, onDeleteContact }) {
+  return (
+    <ul className={s.contactList}>
+      {contacts.map(({ id, name, number }) => (
+        <Contact
+          key={id}
+          id={id}
+          name={name}
+          number={number}
+          onDeleteContact={onDeleteContact}
+        />
+      ))}
+    </ul>
+  );
 }
 
 ContactList.propTypes = {

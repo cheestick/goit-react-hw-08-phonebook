@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ContactForm from 'components/ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
-import * as db from 'Service/Database';
+import * as db from 'service/database';
 
 const INITIAL_STATE = {
   contacts: [],
