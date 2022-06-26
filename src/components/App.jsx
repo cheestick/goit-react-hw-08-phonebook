@@ -32,15 +32,6 @@ const App = () => {
   //   return contacts.find(({ name }) => name.toLowerCase() === newContactName);
   // };
 
-  // const filterContacts = () => {
-  //   const normalizedFilter = filter.toLowerCase();
-  //   return normalizedFilter === ''
-  //     ? contacts
-  //     : contacts.filter(contact =>
-  //         contact.name.toLowerCase().includes(normalizedFilter)
-  //       );
-  // };
-
   return (
     <div
       style={{
