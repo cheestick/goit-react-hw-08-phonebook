@@ -2,36 +2,8 @@ import React from 'react';
 import ContactForm from 'components/ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
-// import * as db from 'services/database';
 
 const App = () => {
-  // const [contacts, setContacts] = useState(() => db.fetchPhonebook() || []);
-
-  // useEffect(() => {
-  //   db.updatePhonebook(contacts);
-  // }, [contacts]);
-
-  // const updateContactList = newContact => {
-  //   if (isContactExist(newContact)) {
-  //     alert(`${newContact.name} is already in contact list`);
-  //     return;
-  //   }
-  //   setContacts(prevContacts => [...prevContacts, newContact]);
-  // };
-
-  // const onDeleteContact = contactID => {
-  //   const updatedContacts = contacts.filter(
-  //     contact => contact.id !== contactID
-  //   );
-
-  //   setContacts(updatedContacts);
-  // };
-
-  // const isContactExist = ({ name }) => {
-  //   const newContactName = name.toLowerCase();
-  //   return contacts.find(({ name }) => name.toLowerCase() === newContactName);
-  // };
-
   return (
     <div
       style={{

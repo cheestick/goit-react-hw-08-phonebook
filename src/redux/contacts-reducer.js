@@ -1,11 +1,17 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
-import { addContact, removeContact, changeFilter } from './contacts-actions';
+import {
+  addContact,
+  removeContact,
+  changeFilter,
+  existContact,
+} from './contacts-actions';
 
 const itemsReducer = createReducer([], {
   [addContact]: (state, { payload }) => [...state, payload],
   [removeContact]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload.id),
+  [existContact]: (state, _) => state,
 });
 
 const filterReducer = createReducer('', {

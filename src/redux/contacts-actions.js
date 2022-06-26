@@ -15,6 +15,8 @@ export const removeContact = createAction('contacts/remove', id => ({
   },
 }));
 
+export const existContact = createAction('contacts/exist');
+
 export const changeFilter = createAction('filter/change', filter => ({
   payload: { filter },
 }));
