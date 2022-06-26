@@ -1,19 +1,16 @@
-import React, { useState, useRef } from 'react';
-import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import s from './ContactForm.module.css';
+import { addContact } from 'redux/contacts-actions';
+import { useDispatch } from 'react-redux';
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  const inputNameID = useRef(`name-${nanoid()}`);
-  const inputPhoneID = useRef(`phone-${nanoid()}`);
+  const dispatch = useDispatch();
 
   const addNewContact = e => {
     e.preventDefault();
-    const id = nanoid();
-    onSubmit({ id, name, number });
+    dispatch(addContact(name, number));
     reset();
   };
 
@@ -29,9 +26,9 @@ const ContactForm = ({ onSubmit }) => {
 
   return (
     <form className={s.form} onSubmit={addNewContact} autoComplete="off">
-      <label htmlFor={inputNameID.current}>Name</label>
+      <label htmlFor="contactName">Name</label>
       <input
-        id={inputNameID.current}
+        id="contactName"
         name="name"
         value={name}
         onChange={handleChange}
@@ -41,9 +38,9 @@ const ContactForm = ({ onSubmit }) => {
         required
       />
 
-      <label htmlFor={inputPhoneID.current}>Number</label>
+      <label htmlFor="contactNumber">Number</label>
       <input
-        id={inputPhoneID.current}
+        id="contactNumber"
         name="number"
         value={number}
         onChange={handleChange}
@@ -58,10 +55,6 @@ const ContactForm = ({ onSubmit }) => {
       </button>
     </form>
   );
-};
-
-ContactForm.ptopTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ContactForm;

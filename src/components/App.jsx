@@ -1,46 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ContactForm from 'components/ContactForm';
 import ContactList from './ContactList';
 import Filter from './Filter';
-import * as db from 'services/database';
+// import * as db from 'services/database';
 
 const App = () => {
-  const [contacts, setContacts] = useState(() => db.fetchPhonebook() || []);
-  const [filter, setFilter] = useState('');
+  // const [contacts, setContacts] = useState(() => db.fetchPhonebook() || []);
 
-  useEffect(() => {
-    db.updatePhonebook(contacts);
-  }, [contacts]);
+  // useEffect(() => {
+  //   db.updatePhonebook(contacts);
+  // }, [contacts]);
 
-  const updateContactList = newContact => {
-    if (isContactExist(newContact)) {
-      alert(`${newContact.name} is already in contact list`);
-      return;
-    }
-    setContacts(prevContacts => [...prevContacts, newContact]);
-  };
+  // const updateContactList = newContact => {
+  //   if (isContactExist(newContact)) {
+  //     alert(`${newContact.name} is already in contact list`);
+  //     return;
+  //   }
+  //   setContacts(prevContacts => [...prevContacts, newContact]);
+  // };
 
-  const onDeleteContact = contactID => {
-    const updatedContacts = contacts.filter(
-      contact => contact.id !== contactID
-    );
+  // const onDeleteContact = contactID => {
+  //   const updatedContacts = contacts.filter(
+  //     contact => contact.id !== contactID
+  //   );
 
-    setContacts(updatedContacts);
-  };
+  //   setContacts(updatedContacts);
+  // };
 
-  const isContactExist = ({ name }) => {
-    const newContactName = name.toLowerCase();
-    return contacts.find(({ name }) => name.toLowerCase() === newContactName);
-  };
+  // const isContactExist = ({ name }) => {
+  //   const newContactName = name.toLowerCase();
+  //   return contacts.find(({ name }) => name.toLowerCase() === newContactName);
+  // };
 
-  const filterContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return normalizedFilter === ''
-      ? contacts
-      : contacts.filter(contact =>
-          contact.name.toLowerCase().includes(normalizedFilter)
-        );
-  };
+  // const filterContacts = () => {
+  //   const normalizedFilter = filter.toLowerCase();
+  //   return normalizedFilter === ''
+  //     ? contacts
+  //     : contacts.filter(contact =>
+  //         contact.name.toLowerCase().includes(normalizedFilter)
+  //       );
+  // };
 
   return (
     <div
@@ -59,14 +58,11 @@ const App = () => {
       }}
     >
       <h1>Phonebook</h1>
-      <ContactForm onSubmit={updateContactList} />
+      <ContactForm />
 
       <h2>Contacts</h2>
-      <Filter filter={filter} onChange={setFilter} />
-      <ContactList
-        contacts={filterContacts(filter)}
-        onDeleteContact={onDeleteContact}
-      />
+      <Filter />
+      <ContactList />
     </div>
   );
 };
