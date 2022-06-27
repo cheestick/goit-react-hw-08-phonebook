@@ -44,46 +44,4 @@ const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
 export default store;
-
-// const updateContactList = newContact => {
-//   if (isContactExist(newContact)) {
-//     alert(`${newContact.name} is already in contact list`);
-//     return;
-//   }
-//   setContacts(prevContacts => [...prevContacts, newContact]);
-// };
-
-// const isContactExist = (contacts, name) => {
-//   const newContactName = name.toLowerCase();
-//   if (contacts.length === 0) return false;
-
-//   return contacts.find(({ name }) => name.toLowerCase() === newContactName);
-// };
-
-// function updateDBmw({ getState }) {
-//   return next => action => {
-//     console.log(action);
-//     addContact.match(action) &&
-//       db.updatePhonebook([...getState().contacts.items, action.payload]);
-
-//     return next(action);
-//   };
-// }
-
-// const checkUniqueContact =
-//   ({ getState, dispatch }) =>
-//   next =>
-//   action => {
-//     if (addContact.match(action)) {
-//       console.log(action);
-//       console.log(getState());
-
-//       if (isContactExist(getState().contacts.items, action.payload.name)) {
-//         alert('Contacts exist');
-//         dispatch(existContact());
-//       }
-//     }
-//     return next(action);
-//   };
