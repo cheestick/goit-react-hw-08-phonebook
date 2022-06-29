@@ -12,6 +12,8 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+// https://62bc3390eff39ad5ee1f9e0b.mockapi.io/api/v1/
+
 const initialState = {
   contacts: {
     items: [
