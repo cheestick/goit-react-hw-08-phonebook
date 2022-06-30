@@ -1,31 +1,31 @@
 import React, { useState } from 'react';
 import { useAddContactMutation } from 'redux/contactsApi';
 import s from './ContactForm.module.css';
-// import { addContact } from 'redux/contacts-actions';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getContactList } from 'redux/contacts-selectors';
+import { contactsApi } from 'redux/contactsApi';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [addContact] = useAddContactMutation();
+  const { currentData: currentContacts } =
+    contactsApi.endpoints.fetchAllContacts.useQueryState();
 
-  const addNewContact = e => {
+  const addNewContact = async e => {
     e.preventDefault();
-    // if (isContactAlreadyExist(contacts, name)) {
-    //   alert(`${name} is already in contact list`);
-    //   return;
-    // }
-    addContact({ name, number });
+    if (isContactAlreadyExist(currentContacts, name)) {
+      alert(`${name} is already in contact list`);
+      return;
+    }
+    await addContact({ name, number });
     reset();
   };
 
-  // const isContactAlreadyExist = (contacts, name) => {
-  //   const newContactName = name.toLowerCase();
-  //   if (contacts.length === 0) return false;
+  const isContactAlreadyExist = (contacts, name) => {
+    const newContactName = name.toLowerCase();
+    if (contacts.length === 0) return false;
 
-  //   return contacts.find(({ name }) => name.toLowerCase() === newContactName);
-  // };
+    return contacts.find(({ name }) => name.toLowerCase() === newContactName);
+  };
 
   const handleChange = ({ target: { name, value } }) => {
     name === 'name' && setName(value);

@@ -15,7 +15,6 @@ export const contactsApi = createApi({
       query: id => ({
         url: `/contacts/${id}`,
         method: 'DELETE',
-        body: { id },
       }),
       invalidatesTags: ['Contacts'],
     }),
