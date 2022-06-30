@@ -8,8 +8,7 @@ import s from './ContactForm.module.css';
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [addContact, { data }] = useAddContactMutation();
-  console.log(data);
+  const [addContact] = useAddContactMutation();
 
   const addNewContact = e => {
     e.preventDefault();

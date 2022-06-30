@@ -7,12 +7,7 @@ import { useFetchAllContactsQuery } from 'redux/contactsApi';
 
 export default function ContactList() {
   const { value } = useSelector(getFilter);
-  const {
-    data: contacts,
-    isFetching,
-    isSuccess,
-    isError,
-  } = useFetchAllContactsQuery();
+  const { data: contacts, isError } = useFetchAllContactsQuery();
 
   function filterContacts(contacts, filter = '') {
     const normalizedFilter = filter?.toLowerCase();
@@ -23,20 +18,18 @@ export default function ContactList() {
         );
   }
 
-  if (isFetching) return <div>Loading contacts...</div>;
   if (isError)
     return (
       <div>A problem occured while receiving contacts. Try again later</div>
     );
 
-  if (isSuccess) {
-    const filteredContacts = filterContacts(contacts, value);
-    return (
-      <ul className={s.contactList}>
-        {filteredContacts.map(({ id, name, number }) => (
-          <Contact key={id} id={id} name={name} number={number} />
-        ))}
-      </ul>
-    );
-  }
+  const filteredContacts = filterContacts(contacts, value);
+
+  return (
+    <ul className={s.contactList}>
+      {filteredContacts?.map(({ id, name, number }) => (
+        <Contact key={id} id={id} name={name} number={number} />
+      ))}
+    </ul>
+  );
 }
