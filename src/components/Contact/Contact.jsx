@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import s from './Contact.module.css';
-import { useDispatch } from 'react-redux/es/exports';
-import { removeContact } from 'redux/contacts-actions';
+import { useDeleteContactMutation } from 'redux/contactsApi';
 
 export default function Contact({ id, name, number }) {
-  const dispatch = useDispatch();
+  const [removeContact, { isFetching }] = useDeleteContactMutation();
   return (
     <li className={s.row} id={id}>
       <span className={s.name}>{name}:</span>
       <span className={s.number}>{number}</span>
       <button
         className={s.buttonDelete}
-        onClick={() => dispatch(removeContact(id))}
+        onClick={() => removeContact(id)}
+        disabled={isFetching}
       >
         x
       </button>

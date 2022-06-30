@@ -7,12 +7,12 @@ const App = () => {
   return (
     <div
       style={{
-        height: '100vh',
+        minHeight: '100vh',
         width: 500,
         margin: '0 auto',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+
         alignItems: 'felx-start',
         gap: 12,
         fontSize: 24,

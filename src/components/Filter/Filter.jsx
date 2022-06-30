@@ -16,7 +16,7 @@ export default function Filter() {
         id={filterID.current}
         type="text"
         name="filter"
-        value={filter}
+        value={filter.value}
         onChange={({ target }) => dispatch(changeFilter(target.value))}
         autoComplete="off"
       />
