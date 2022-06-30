@@ -4,15 +4,16 @@ import s from './Contact.module.css';
 import { useDeleteContactMutation } from 'redux/contactsApi';
 
 export default function Contact({ id, name, number }) {
-  const [removeContact, { isFetching }] = useDeleteContactMutation();
+  const [removeContact, { isLoading }] = useDeleteContactMutation();
+  const rowStyle = isLoading ? `${s.row} ${s.deleting}` : s.row;
   return (
-    <li className={s.row} id={id}>
+    <li className={rowStyle} id={id}>
       <span className={s.name}>{name}:</span>
       <span className={s.number}>{number}</span>
       <button
         className={s.buttonDelete}
         onClick={() => removeContact(id)}
-        disabled={isFetching}
+        disabled={isLoading}
       >
         x
       </button>

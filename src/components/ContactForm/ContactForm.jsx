@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAddContactMutation } from 'redux/contactsApi';
 import s from './ContactForm.module.css';
 // import { addContact } from 'redux/contacts-actions';
 // import { useDispatch, useSelector } from 'react-redux';
@@ -7,8 +8,8 @@ import s from './ContactForm.module.css';
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const contacts = useSelector(getContactList);
-  // const dispatch = useDispatch();
+  const [addContact, { data }] = useAddContactMutation();
+  console.log(data);
 
   const addNewContact = e => {
     e.preventDefault();
@@ -16,7 +17,7 @@ const ContactForm = () => {
     //   alert(`${name} is already in contact list`);
     //   return;
     // }
-    // dispatch(addContact(name, number));
+    addContact({ name, number });
     reset();
   };
 

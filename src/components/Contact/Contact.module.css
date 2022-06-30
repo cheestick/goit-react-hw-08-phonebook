@@ -36,3 +36,12 @@
 .buttonDelete:active {
   transform: scale(0.9);
 }
+
+.buttonDelete:disabled {
+  background-color: rgb(176, 176, 176);
+  pointer-events: none;
+}
+
+.deleting {
+  color: rgb(176, 176, 176);
+}
