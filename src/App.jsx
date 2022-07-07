@@ -4,12 +4,16 @@ import ContactForm from 'components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
 import s from './App.module.css';
+import { Signup, Signin } from 'routes';
 
 const App = () => {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="login" replace />} />
+      <Route path="register" element={<Signup />} />
+      <Route path="login" element={<Signin />} />
       <Route
-        path="/"
+        path="contacts"
         element={
           <div className={s.container}>
             <h1>Phonebook</h1>
