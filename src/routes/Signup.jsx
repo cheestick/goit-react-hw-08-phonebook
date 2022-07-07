@@ -25,11 +25,12 @@ export default function Signup() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    console.log({
-      name: data.get('firstName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    // console.log({
+    //   name: data.get('firstName'),
+    //   email: data.get('email'),
+    //   password: data.get('password'),
+    // });
     event.currentTarget.reset();
   };
 

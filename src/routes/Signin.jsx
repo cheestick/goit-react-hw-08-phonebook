@@ -11,15 +11,21 @@ import {
   Container,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useSignInUserMutation } from 'redux/auth';
 
 export default function SignIn() {
+  const [userSingIn, response] = useSignInUserMutation();
+  console.log(response);
+
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    userSingIn({
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    event.currentTarget.reset();
   };
 
   return (
