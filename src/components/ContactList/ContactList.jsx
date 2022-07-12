@@ -2,7 +2,7 @@ import React from 'react';
 import Contact from 'components/Contact';
 import s from './ContactList.module.css';
 import { useSelector } from 'react-redux';
-import { getFilter } from 'redux/contacts-selectors';
+import { getFilter } from 'redux/filterSlice';
 import { useFetchAllContactsQuery } from 'redux/contactsApi';
 
 export default function ContactList() {

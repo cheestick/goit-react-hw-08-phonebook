@@ -11,7 +11,7 @@ import {
   Container,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { useSignUpUserMutation } from 'redux/auth';
+import { useSignUpUserMutation } from 'redux/api';
 
 export default function Signup() {
   const [userSignUp, response] = useSignUpUserMutation();

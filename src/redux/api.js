@@ -2,11 +2,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const API_URL = 'https://connections-api.herokuapp.com';
 
-export const authApi = createApi({
-  reducerPath: 'auth',
+export const api = createApi({
+  reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers, { getState }) => {
+      const token = getState.auth.token;
+      token && headers.set('Authorization', `Bearer ${token}`);
       return headers;
     },
   }),
@@ -48,4 +50,4 @@ export const {
   useSignUpUserMutation,
   useSignInUserMutation,
   useLogOutUserMutation,
-} = authApi;
+} = api;

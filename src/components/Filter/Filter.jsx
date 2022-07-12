@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { nanoid } from 'nanoid';
-import { changeFilter } from 'redux/contacts-actions';
-import { getFilter } from 'redux/contacts-selectors';
+import { getFilter, changeFilter } from 'redux/filterSlice';
 
 export default function Filter() {
   const filterID = useRef(nanoid());
