@@ -6,8 +6,12 @@ import ContactForm from 'components/ContactForm';
 import s from './App.module.css';
 import { Signup, Signin } from 'routes';
 import PrivateOutlet from 'PrivateOutlet/PrivateOutlet';
+import { useFetchCurrentUserQuery } from 'redux/api';
 
 const App = () => {
+  const user = useFetchCurrentUserQuery();
+  console.log(user);
+
   return (
     <Routes>
       <Route path="register" element={<Signup />} />

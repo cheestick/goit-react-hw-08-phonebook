@@ -15,7 +15,9 @@ export const api = createApi({
   tagTypes: ['auth/user'],
   endpoints: build => ({
     fetchCurrentUser: build.query({
-      query: () => ({}),
+      query: () => ({
+        url: 'users/current',
+      }),
       providesTags: ['auth/user'],
     }),
     signUpUser: build.mutation({
