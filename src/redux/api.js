@@ -7,7 +7,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_URL,
     prepareHeaders: (headers, { getState }) => {
-      const token = getState.auth.token;
+      const token = getState().auth.token;
       token && headers.set('Authorization', `Bearer ${token}`);
       return headers;
     },
@@ -38,7 +38,6 @@ export const api = createApi({
       query: token => ({
         url: 'users/logout',
         method: 'POST',
-        //'Authorization': `Bearer ${token}`
       }),
       invalidatesTags: ['auth/user'],
     }),

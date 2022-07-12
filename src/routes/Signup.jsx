@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Link as RouteLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import {
   Avatar,
   Button,
@@ -12,26 +14,35 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useSignUpUserMutation } from 'redux/api';
+import { setCredentials } from 'redux/authSlice';
 
 export default function Signup() {
-  const [userSignUp, response] = useSignUpUserMutation();
-  console.log(response);
+  const [userSignUp] = useSignUpUserMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
+    const form = event.currentTarget;
     const data = new FormData(event.currentTarget);
-    userSignUp({
+
+    form.reset();
+
+    const response = await userSignUp({
       name: data.get('firstName'),
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }).unwrap();
 
-    // console.log({
-    //   name: data.get('firstName'),
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-    event.currentTarget.reset();
+    console.log('res ', response);
+
+    dispatch(
+      setCredentials({
+        user: response.user,
+        token: response.token,
+      })
+    );
+    navigate('/contacts', { replace: true });
   };
 
   return (
@@ -99,7 +110,7 @@ export default function Signup() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link component={RouteLink} to="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
