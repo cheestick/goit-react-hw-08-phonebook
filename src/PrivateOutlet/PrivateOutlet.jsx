@@ -5,10 +5,12 @@ const PrivateOutlet = () => {
   const auth = useAuth();
   const location = useLocation();
 
+  auth.user = true; //test only
+
   return auth.user ? (
     <Outlet />
   ) : (
-    <Navigate to="/login" state={{ from: location }} />
+    <Navigate to="/login" state={{ from: location }} replace />
   );
 };
 

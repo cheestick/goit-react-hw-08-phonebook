@@ -14,12 +14,18 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoggedIn = Boolean(state.token); // ?
     },
+    refreshCredentials(state, action) {
+      state.user = action.payload;
+      state.isLoggedIn = true;
+    },
   },
 });
 
-export const { setCredentials, resetCredentials } = authSlice.actions;
+export const { setCredentials, resetCredentials, refreshCredentials } =
+  authSlice.actions;
 
 export default authSlice.reducer;
 
 export const selectCurrentUser = state => state.auth.user;
 export const selectCurrentToken = state => state.auth.token;
+export const selectIsLoggedIn = state => state.auth.isLoggedIn;
