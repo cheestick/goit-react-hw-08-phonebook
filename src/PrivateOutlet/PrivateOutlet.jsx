@@ -5,7 +5,7 @@ const PrivateOutlet = () => {
   const auth = useAuth();
   const location = useLocation();
 
-  auth.user = true; //test only
+  // auth.user = true; //test only
 
   return auth.user ? (
     <Outlet />
