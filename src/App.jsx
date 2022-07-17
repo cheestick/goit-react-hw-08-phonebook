@@ -2,14 +2,14 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Signup, Signin, Contacts } from 'routes';
 import PrivateOutlet from 'PrivateOutlet/PrivateOutlet';
-// import { useFetchCurrentUserQuery } from 'redux/api';
+import { useFetchCurrentUserQuery } from 'redux/api';
 // import { refreshCredentials } from 'redux/authSlice';
 // import { useDispatch } from 'react-redux';
 import UserMenu from 'components/UserMenu';
 
 const App = () => {
   // const dispatch = useDispatch();
-  // const { data: user, isSuccess } = useFetchCurrentUserQuery();
+  const { data: user, isSuccess } = useFetchCurrentUserQuery();
   // isSuccess && dispatch(refreshCredentials(user));
 
   return (
