@@ -48,6 +48,7 @@ export const api = createApi({
 
 export const {
   useFetchCurrentUserQuery,
+  useLazyFetchCurrentUserQuery,
   useSignUpUserMutation,
   useSignInUserMutation,
   useLogOutUserMutation,

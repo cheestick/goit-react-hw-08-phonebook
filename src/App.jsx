@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Signup, Signin, Contacts } from 'routes';
 import PrivateOutlet from 'PrivateOutlet/PrivateOutlet';
-import { useFetchCurrentUserQuery } from 'redux/api';
-// import { refreshCredentials } from 'redux/authSlice';
-// import { useDispatch } from 'react-redux';
+import { useLazyFetchCurrentUserQuery } from 'redux/api';
+import { useSelector } from 'react-redux';
 import UserMenu from 'components/UserMenu';
+import { selectIsLoggedIn } from 'redux/authSlice';
 
 const App = () => {
-  // const dispatch = useDispatch();
-  const { data: user, isSuccess } = useFetchCurrentUserQuery();
-  // isSuccess && dispatch(refreshCredentials(user));
+  const [fetchCurrentUser] = useLazyFetchCurrentUserQuery();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  useEffect(() => {
+    if (!isLoggedIn) fetchCurrentUser();
+  }, [fetchCurrentUser, isLoggedIn]);
 
   return (
     <Routes>

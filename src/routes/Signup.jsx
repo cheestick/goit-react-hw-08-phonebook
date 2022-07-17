@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Link as RouteLink, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import {
   Avatar,
   Button,
@@ -14,11 +13,9 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useSignUpUserMutation } from 'redux/api';
-import { setCredentials } from 'redux/authSlice';
 
 export default function Signup() {
   const [userSignUp] = useSignUpUserMutation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async event => {
@@ -28,20 +25,12 @@ export default function Signup() {
 
     form.reset();
 
-    const response = await userSignUp({
+    await userSignUp({
       name: data.get('firstName'),
       email: data.get('email'),
       password: data.get('password'),
     }).unwrap();
 
-    console.log('res ', response);
-
-    dispatch(
-      setCredentials({
-        user: response.user,
-        token: response.token,
-      })
-    );
     navigate('/contacts', { replace: true });
   };
 

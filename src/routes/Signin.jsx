@@ -13,14 +13,10 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useSignInUserMutation } from 'redux/api';
-import { useDispatch } from 'react-redux';
-import { setCredentials } from 'redux/authSlice';
 
 export default function SignIn() {
   const [userSingIn] = useSignInUserMutation();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  // console.log(singInRes);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -28,19 +24,10 @@ export default function SignIn() {
     const data = new FormData(event.currentTarget);
     form.reset();
 
-    const response = await userSingIn({
+    await userSingIn({
       email: data.get('email'),
       password: data.get('password'),
     });
-
-    console.log(response);
-
-    dispatch(
-      setCredentials({
-        user: response.data.user,
-        token: response.data.token,
-      })
-    );
 
     navigate('/contacts', { replace: true });
   };

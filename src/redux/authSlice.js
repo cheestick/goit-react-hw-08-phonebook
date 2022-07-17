@@ -4,22 +4,7 @@ import { api } from './api';
 const authSlice = createSlice({
   name: 'auth',
   initialState: { user: null, token: null, isLoggedIn: false },
-  reducers: {
-    // setCredentials(state, action) {
-    //   state.user = action.payload.user;
-    //   state.token = action.payload.token;
-    //   state.isLoggedIn = true; //Boolean(state.token); // ?
-    // },
-    // resetCredentials(state) {
-    //   state.user = null;
-    //   state.token = null;
-    //   state.isLoggedIn = false; // Boolean(state.token); // ?
-    // },
-    // refreshCredentials(state, action) {
-    //   state.user = action.payload;
-    //   state.isLoggedIn = true;
-    // },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
       .addMatcher(
@@ -42,6 +27,7 @@ const authSlice = createSlice({
         api.endpoints.fetchCurrentUser.matchFulfilled,
         (state, { payload }) => {
           state.user = payload;
+          state.isLoggedIn = true;
         }
       )
       .addMatcher(api.endpoints.logOutUser.matchFulfilled, (state, _action) => {
@@ -51,9 +37,6 @@ const authSlice = createSlice({
       });
   },
 });
-
-export const { setCredentials, resetCredentials, refreshCredentials } =
-  authSlice.actions;
 
 export default authSlice.reducer;
 
