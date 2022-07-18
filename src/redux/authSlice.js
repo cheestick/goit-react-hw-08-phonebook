@@ -3,7 +3,7 @@ import { api } from './api';
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { user: null, token: null, isLoggedIn: false },
+  initialState: { user: null, token: null, isLoggedIn: false, isError: false },
   reducers: {},
   extraReducers: builder => {
     builder
@@ -43,3 +43,4 @@ export default authSlice.reducer;
 export const selectCurrentUser = state => state.auth.user;
 export const selectCurrentToken = state => state.auth.token;
 export const selectIsLoggedIn = state => state.auth.isLoggedIn;
+export const selectIsError = state => state.auth.isError;

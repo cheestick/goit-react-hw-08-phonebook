@@ -52,7 +52,7 @@ export const api = createApi({
         url: `/contacts/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (_result, _error, id) => [{ type: 'contacts', id }],
+      invalidatesTags: ['contacts'], //(_result, _error, id) => [{ type: 'contacts', id }],
     }),
     addContact: build.mutation({
       query: newContact => ({
@@ -68,7 +68,7 @@ export const api = createApi({
         method: 'PATCH',
         body: patch,
       }),
-      invalidatesTags: (_result, _error, { id }) => [{ type: 'contacts, id' }],
+      invalidatesTags: (_result, _error, id) => [{ type: 'contacts', id }],
     }),
   }),
 });
@@ -80,6 +80,7 @@ export const {
   useSignInUserMutation,
   useLogOutUserMutation,
   useFetchAllContactsQuery,
+  useLazyFetchAllContactsQuery,
   useDeleteContactMutation,
   useAddContactMutation,
   useUpdateContactMutation,

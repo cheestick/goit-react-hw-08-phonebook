@@ -5,15 +5,15 @@ import PrivateOutlet from 'PrivateOutlet/PrivateOutlet';
 import { useLazyFetchCurrentUserQuery } from 'redux/api';
 import { useSelector } from 'react-redux';
 import UserMenu from 'components/UserMenu';
-import { selectIsLoggedIn } from 'redux/authSlice';
+import { selectCurrentToken } from 'redux/authSlice';
 
 const App = () => {
   const [fetchCurrentUser] = useLazyFetchCurrentUserQuery();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const hasAccessToken = useSelector(selectCurrentToken);
 
   useEffect(() => {
-    if (!isLoggedIn) fetchCurrentUser();
-  }, [fetchCurrentUser, isLoggedIn]);
+    if (hasAccessToken) fetchCurrentUser();
+  }, [fetchCurrentUser, hasAccessToken]);
 
   return (
     <Routes>

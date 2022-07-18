@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import s from './Contact.module.css';
-import { useDeleteContactMutation } from 'redux/contactsApi';
+import { useDeleteContactMutation } from 'redux/api';
 
 export default function Contact({ id, name, number }) {
   const [removeContact, { isLoading }] = useDeleteContactMutation();

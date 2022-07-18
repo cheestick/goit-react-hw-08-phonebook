@@ -8,6 +8,10 @@ export default function Filter() {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
+  const onChangeFilterHandler = ({ target }) => {
+    dispatch(changeFilter(target.value));
+  };
+
   return (
     <>
       <label htmlFor={filterID.current}>Find contact by name</label>
@@ -16,7 +20,7 @@ export default function Filter() {
         type="text"
         name="filter"
         value={filter.value}
-        onChange={({ target }) => dispatch(changeFilter(target.value))}
+        onChange={onChangeFilterHandler}
         autoComplete="off"
       />
     </>

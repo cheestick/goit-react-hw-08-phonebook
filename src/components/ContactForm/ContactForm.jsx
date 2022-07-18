@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { useAddContactMutation } from 'redux/contactsApi';
 import s from './ContactForm.module.css';
-import { contactsApi } from 'redux/contactsApi';
+import { api, useAddContactMutation } from 'redux/api';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [addContact] = useAddContactMutation();
   const { currentData: currentContacts } =
-    contactsApi.endpoints.fetchAllContacts.useQueryState();
+    api.endpoints.fetchAllContacts.useQueryState();
 
   const addNewContact = async e => {
     e.preventDefault();
