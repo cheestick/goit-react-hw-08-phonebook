@@ -1,5 +1,3 @@
-// import { createReducer, createAction } from '@reduxjs/toolkit';
-// import { combineReducers } from 'redux';
 import { createSlice } from '@reduxjs/toolkit';
 
 const filterSlice = createSlice({
