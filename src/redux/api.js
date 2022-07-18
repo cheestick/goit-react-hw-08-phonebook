@@ -12,7 +12,7 @@ export const api = createApi({
       return headers;
     },
   }),
-  tagTypes: ['auth/user'],
+  tagTypes: ['auth/user', 'contacts'],
   endpoints: build => ({
     fetchCurrentUser: build.query({
       query: () => ({
@@ -43,6 +43,33 @@ export const api = createApi({
       }),
       invalidatesTags: ['auth/user'],
     }),
+    fetchAllContacts: build.query({
+      query: () => '/contacts',
+      providesTags: ['contacts'],
+    }),
+    deleteContact: build.mutation({
+      query: id => ({
+        url: `/contacts/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (_result, _error, id) => [{ type: 'contacts', id }],
+    }),
+    addContact: build.mutation({
+      query: newContact => ({
+        url: '/contacts',
+        method: 'POST',
+        body: newContact,
+      }),
+      invalidatesTags: [{ type: 'contacts' }],
+    }),
+    updateContact: build.mutation({
+      query: (id, patch) => ({
+        url: `/contacts/${id}`,
+        method: 'PATCH',
+        body: patch,
+      }),
+      invalidatesTags: (_result, _error, { id }) => [{ type: 'contacts, id' }],
+    }),
   }),
 });
 
@@ -52,4 +79,8 @@ export const {
   useSignUpUserMutation,
   useSignInUserMutation,
   useLogOutUserMutation,
+  useFetchAllContactsQuery,
+  useDeleteContactMutation,
+  useAddContactMutation,
+  useUpdateContactMutation,
 } = api;
