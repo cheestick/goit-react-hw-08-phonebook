@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import Contact from 'components/Contact';
-import s from './ContactList.module.css';
 import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/filterSlice';
 import { useLazyFetchAllContactsQuery } from 'redux/api';
 import { selectIsLoggedIn } from 'redux/authSlice';
+import { List } from '@mui/material';
 
 export default function ContactList() {
   const { value } = useSelector(getFilter);
@@ -33,11 +33,11 @@ export default function ContactList() {
   const filteredContacts = filterContacts(contacts, value);
 
   return (
-    <ul className={s.contactList}>
+    <List>
       {!isFetching &&
         filteredContacts?.map(({ id, name, number }) => (
           <Contact key={id} id={id} name={name} number={number} />
         ))}
-    </ul>
+    </List>
   );
 }
