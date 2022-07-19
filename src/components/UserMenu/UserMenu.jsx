@@ -1,11 +1,8 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { AppBar, Link, Toolbar, InputBase } from '@mui/material';
+import { Link, InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from 'redux/authSlice';
 import { useLogOutUserMutation } from 'redux/api';
 
 const Search = styled('div')(({ theme }) => ({
@@ -49,33 +46,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const UserMenu = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
   const [logOutUser] = useLogOutUserMutation();
 
   return (
     <>
-      <AppBar position="sticky">
-        <Toolbar>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-        </Toolbar>
-      </AppBar>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ 'aria-label': 'search' }}
+        />
+      </Search>
       <Link component={NavLink} to="contacts">
         Contacts
       </Link>
-      {isLoggedIn && (
-        <button type="button" onClick={logOutUser}>
-          Logout
-        </button>
-      )}
-      <Outlet />
+
+      <button type="button" onClick={logOutUser}>
+        Logout
+      </button>
     </>
   );
 };
