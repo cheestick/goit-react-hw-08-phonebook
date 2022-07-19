@@ -1,72 +1,84 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Link, InputBase } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
-import SearchIcon from '@mui/icons-material/Search';
+import React, { useState } from 'react';
+import {
+  Box,
+  Tooltip,
+  IconButton,
+  Avatar,
+  Menu,
+  MenuItem,
+  Typography,
+  Divider,
+  Fab,
+} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { Container } from '@mui/system';
+import { deepOrange } from '@mui/material/colors';
 import { useLogOutUserMutation } from 'redux/api';
+import { useAuth } from 'hooks/useAuth';
+import SearchBar from 'components/SearchBar';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+const stringAvatar = name => ({
+  children: `${name[0].toUpperCase()}`,
+});
 
 const UserMenu = () => {
   const [logOutUser] = useLogOutUserMutation();
+  const { user } = useAuth();
+
+  const [anchorUserMenu, setAnchorUserMenu] = useState(null);
+
+  const openUserMenuHandler = event => {
+    setAnchorUserMenu(event.currentTarget);
+  };
+
+  const closeUserMenuHandler = () => {
+    setAnchorUserMenu(null);
+  };
 
   return (
-    <>
-      <Search>
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ 'aria-label': 'search' }}
-        />
-      </Search>
-      <Link component={NavLink} to="contacts">
-        Contacts
-      </Link>
+    <Container maxWidth="sm">
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <SearchBar />
+          <Fab size="small" color="warning" aria-label="add contact">
+            <AddIcon />
+          </Fab>
+        </Box>
 
-      <button type="button" onClick={logOutUser}>
-        Logout
-      </button>
-    </>
+        <Box>
+          <Tooltip title="Open settings">
+            <IconButton onClick={openUserMenuHandler}>
+              <Avatar
+                sx={{ bgcolor: deepOrange[500] }}
+                {...stringAvatar(user.name)}
+              ></Avatar>
+            </IconButton>
+          </Tooltip>
+          <Menu
+            id="account-menu"
+            anchorEl={anchorUserMenu}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            open={Boolean(anchorUserMenu)}
+            onClose={closeUserMenuHandler}
+          >
+            <MenuItem key="email" onClick={closeUserMenuHandler}>
+              <Typography textAlign="center">{user.email}</Typography>
+            </MenuItem>
+            <Divider />
+            <MenuItem key="Logout" onClick={logOutUser}>
+              <Typography textAlign="center">Logout</Typography>
+            </MenuItem>
+          </Menu>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 

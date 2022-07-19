@@ -10,9 +10,9 @@ const Layout = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Container maxWidth="xl">
-          <Toolbar>{isLoggedIn && <UserMenu />}</Toolbar>
+          <Toolbar variant="dense">{isLoggedIn && <UserMenu />}</Toolbar>
         </Container>
       </AppBar>
       <Outlet />

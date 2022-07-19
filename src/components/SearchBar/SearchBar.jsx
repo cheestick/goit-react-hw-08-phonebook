@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { nanoid } from 'nanoid';
+import SearchIcon from '@mui/icons-material/Search';
+import { Search, SearchIconWrapper, StyledInputBase } from './SearchBar.styled';
 import { getFilter, changeFilter } from 'redux/filterSlice';
 
-export default function Filter() {
-  const filterID = useRef(nanoid());
+const SearchBar = () => {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
@@ -13,16 +13,20 @@ export default function Filter() {
   };
 
   return (
-    <>
-      <label htmlFor={filterID.current}>Find contact by name</label>
-      <input
-        id={filterID.current}
-        type="text"
+    <Search>
+      <SearchIconWrapper>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <StyledInputBase
+        placeholder="Search contact…"
+        inputProps={{ 'aria-label': 'search' }}
         name="filter"
         value={filter.value}
         onChange={onChangeFilterHandler}
         autoComplete="off"
       />
-    </>
+    </Search>
   );
-}
+};
+
+export default SearchBar;
