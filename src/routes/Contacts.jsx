@@ -1,17 +1,15 @@
 import React from 'react';
-// import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
-import s from '../App.module.css';
+import { Container, Typography } from '@mui/material';
 
 const Contacts = () => {
   return (
-    <div className={s.container}>
-      {/* <h1>Phonebook</h1> */}
-      {/* <ContactForm /> */}
-
-      <h2>Contacts</h2>
+    <Container maxWidth="sm">
+      <Typography component="h2" variant="h3" sx={{ mt: 2, mb: 2 }}>
+        Contacts
+      </Typography>
       <ContactList />
-    </div>
+    </Container>
   );
 };
 
