@@ -25,12 +25,12 @@ export default function ContactList() {
         );
   }
 
+  const filteredContacts = filterContacts(contacts, value);
+
   if (isError)
     return (
       <div>A problem occured while receiving contacts. Try again later</div>
     );
-
-  const filteredContacts = filterContacts(contacts, value);
 
   return (
     <List>
