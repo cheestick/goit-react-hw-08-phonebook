@@ -40,7 +40,7 @@ const AddContactFrom = ({ closeModal }) => {
       <CssBaseline />
       <Box
         component="form"
-        onSubmit={addNewContact} //{handleSubmit}
+        onSubmit={addNewContact}
         noValidate
         autoComplete="off"
         sx={{ mt: 1 }}
@@ -83,8 +83,8 @@ const AddContactFrom = ({ closeModal }) => {
         />
         <Button
           type="submit"
-          onClick={() => {
-            addNewContact();
+          onClick={e => {
+            addNewContact(e);
             closeModal();
           }}
           autoFocus

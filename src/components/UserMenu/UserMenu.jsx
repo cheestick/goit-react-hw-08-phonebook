@@ -19,7 +19,7 @@ import { deepOrange } from '@mui/material/colors';
 import { useLogOutUserMutation } from 'redux/api';
 import { useAuth } from 'hooks/useAuth';
 import SearchBar from 'components/SearchBar';
-import AddContactForm from 'AddContactForm';
+import AddContactForm from 'components/AddContactForm';
 
 const stringAvatar = name => ({
   children: `${name[0].toUpperCase()}`,
