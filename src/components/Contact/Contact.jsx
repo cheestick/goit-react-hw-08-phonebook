@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { stringToColor } from 'Utils';
 
 export default function Contact({ id, name, number }) {
@@ -23,13 +24,18 @@ export default function Contact({ id, name, number }) {
         id={id}
         alignItems="flex-start"
         secondaryAction={
-          <IconButton
-            edge="end"
-            arial-label="delete"
-            onClick={() => removeContact(id)}
-          >
-            <DeleteIcon />
-          </IconButton>
+          <>
+            <IconButton arial-label="edit" onClick={() => {}}>
+              <EditIcon />
+            </IconButton>
+            <IconButton
+              edge="end"
+              arial-label="delete"
+              onClick={() => removeContact(id)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </>
         }
       >
         <ListItemButton>

@@ -9,9 +9,6 @@ import {
   Typography,
   Divider,
   Fab,
-  Dialog,
-  DialogTitle,
-  DialogContent,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { Container } from '@mui/system';
@@ -20,6 +17,7 @@ import { useLogOutUserMutation } from 'redux/api';
 import { useAuth } from 'hooks/useAuth';
 import SearchBar from 'components/SearchBar';
 import AddContactForm from 'components/AddContactForm';
+import CustomDialog from 'components/CustomDialog';
 
 const stringAvatar = name => ({
   children: `${name[0].toUpperCase()}`,
@@ -51,7 +49,6 @@ const UserMenu = () => {
             <SearchBar />
             <Fab
               size="small"
-              // sx={{ width: 36, height: 36 }}
               color="warning"
               aria-label="add contact"
               onClick={openModalHandler}
@@ -90,16 +87,9 @@ const UserMenu = () => {
         </Box>
       </Container>
 
-      <Dialog
-        open={openModal}
-        onClose={closeModalHandler}
-        aria-labelledby="add-contact-dialog-title"
-      >
-        <DialogTitle id="add-contact-dialog-title">Add contact</DialogTitle>
-        <DialogContent>
-          <AddContactForm closeModal={closeModalHandler} />
-        </DialogContent>
-      </Dialog>
+      <CustomDialog open={openModal} close={closeModalHandler}>
+        <AddContactForm closeModal={closeModalHandler} />
+      </CustomDialog>
     </>
   );
 };
