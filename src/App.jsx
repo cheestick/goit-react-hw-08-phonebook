@@ -4,10 +4,10 @@ import { Signup, Signin, Contacts } from 'routes';
 import PrivateOutlet from 'PrivateOutlet/PrivateOutlet';
 import { useLazyFetchCurrentUserQuery } from 'redux/api';
 import { useSelector } from 'react-redux';
-// import UserMenu from 'components/UserMenu';
 import { selectCurrentToken } from 'redux/authSlice';
 import ProtectedOutlet from 'PrivateOutlet/ProtectedOutlet';
 import Layout from 'components/Layout';
+import MissedPage from 'components/MissedPage';
 
 const App = () => {
   const [fetchCurrentUser] = useLazyFetchCurrentUserQuery();
@@ -28,7 +28,7 @@ const App = () => {
           <Route path="/" element={<h1>Home</h1>} />
           <Route path="contacts" element={<Contacts />} />
         </Route>
-        <Route path="*" element={<div>Missed page...</div>} />
+        <Route path="*" element={<MissedPage />} />
       </Route>
     </Routes>
   );

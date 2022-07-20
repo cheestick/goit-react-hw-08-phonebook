@@ -9,7 +9,7 @@ import { List } from '@mui/material';
 export default function ContactList() {
   const { value } = useSelector(getFilter);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const [fetchAllUserContacts, { data: contacts, isError, isFetching }] =
+  const [fetchAllUserContacts, { data: contacts, isError }] =
     useLazyFetchAllContactsQuery();
 
   useEffect(() => {
@@ -34,10 +34,9 @@ export default function ContactList() {
 
   return (
     <List>
-      {!isFetching &&
-        filteredContacts?.map(({ id, name, number }) => (
-          <Contact key={id} id={id} name={name} number={number} />
-        ))}
+      {filteredContacts?.map(({ id, name, number }) => (
+        <Contact key={id} id={id} name={name} number={number} />
+      ))}
     </List>
   );
 }
