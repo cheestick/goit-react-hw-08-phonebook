@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CssBaseline, Box, TextField, Button } from '@mui/material';
-import { api, useUpdateContactMutation } from 'redux/api';
+import { useUpdateContactMutation } from 'redux/api';
 
 const EditContactForm = ({
   contactId,
@@ -12,25 +12,12 @@ const EditContactForm = ({
   const [name, setName] = useState(contactName || '');
   const [number, setNumber] = useState(contactNumber || '');
   const [updateContact] = useUpdateContactMutation();
-  const { currentData: currentContacts } =
-    api.endpoints.fetchAllContacts.useQueryState();
 
   const updateCurrentContact = async e => {
     e.preventDefault();
-    if (isContactAlreadyExist(currentContacts, name)) {
-      alert(`${name} is already in contact list`);
-      return;
-    }
     const updatedData = { id: contactId, name, number };
     await updateContact(updatedData);
     reset();
-  };
-
-  const isContactAlreadyExist = (contacts, name) => {
-    const newContactName = name.toLowerCase();
-    if (contacts.length === 0) return false;
-
-    return contacts.find(({ name }) => name.toLowerCase() === newContactName);
   };
 
   const handleChange = ({ target: { name, value } }) => {
