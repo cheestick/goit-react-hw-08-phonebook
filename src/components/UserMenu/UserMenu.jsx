@@ -51,9 +51,11 @@ const UserMenu = () => {
             <SearchBar />
             <Fab
               size="small"
+              // sx={{ width: 36, height: 36 }}
               color="warning"
               aria-label="add contact"
               onClick={openModalHandler}
+              variant="circular"
             >
               <AddIcon />
             </Fab>
