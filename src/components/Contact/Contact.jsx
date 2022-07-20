@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDeleteContactMutation } from 'redux/api';
 import {
@@ -14,9 +14,15 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { stringToColor } from 'Utils';
+import CustomDialog from 'components/CustomDialog';
+import EditContactForm from 'components/EditContactForm';
 
 export default function Contact({ id, name, number }) {
+  const [openModal, setOpenModal] = useState(false);
   const [removeContact] = useDeleteContactMutation();
+
+  const openModalHandler = () => setOpenModal(true);
+  const closeModalHandler = () => setOpenModal(false);
 
   return (
     <>
@@ -25,7 +31,12 @@ export default function Contact({ id, name, number }) {
         alignItems="flex-start"
         secondaryAction={
           <>
-            <IconButton arial-label="edit" onClick={() => {}}>
+            <IconButton
+              arial-label="edit"
+              onClick={() => {
+                openModalHandler(id);
+              }}
+            >
               <EditIcon />
             </IconButton>
             <IconButton
@@ -79,6 +90,14 @@ export default function Contact({ id, name, number }) {
         </ListItemButton>
       </ListItem>
       <Divider variant="inset" component="li" />
+      <CustomDialog open={openModal} close={closeModalHandler}>
+        <EditContactForm
+          contactId={id}
+          contactName={name}
+          contactNumber={number}
+          closeModal={closeModalHandler}
+        />
+      </CustomDialog>
     </>
   );
 }

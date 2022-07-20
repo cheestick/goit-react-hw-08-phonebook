@@ -87,7 +87,11 @@ const UserMenu = () => {
         </Box>
       </Container>
 
-      <CustomDialog open={openModal} close={closeModalHandler}>
+      <CustomDialog
+        title="Add contact"
+        open={openModal}
+        close={closeModalHandler}
+      >
         <AddContactForm closeModal={closeModalHandler} />
       </CustomDialog>
     </>

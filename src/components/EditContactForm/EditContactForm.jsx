@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CssBaseline, Box, TextField, Button } from '@mui/material';
-import { useAddContactMutation, api } from 'redux/api';
+import { api, useUpdateContactMutation } from 'redux/api';
 
-const AddContactFrom = ({ closeModal }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const [addContact] = useAddContactMutation();
+const EditContactForm = ({
+  contactId,
+  contactName,
+  contactNumber,
+  closeModal,
+}) => {
+  const [name, setName] = useState(contactName || '');
+  const [number, setNumber] = useState(contactNumber || '');
+  const [updateContact] = useUpdateContactMutation();
   const { currentData: currentContacts } =
     api.endpoints.fetchAllContacts.useQueryState();
 
-  const addNewContact = async e => {
+  const updateCurrentContact = async e => {
     e.preventDefault();
     if (isContactAlreadyExist(currentContacts, name)) {
       alert(`${name} is already in contact list`);
       return;
     }
-    await addContact({ name, number });
+    const updatedData = { id: contactId, name, number };
+    await updateContact(updatedData);
     reset();
   };
 
@@ -36,12 +42,13 @@ const AddContactFrom = ({ closeModal }) => {
     setName('');
     setNumber('');
   };
+
   return (
     <>
       <CssBaseline />
       <Box
         component="form"
-        onSubmit={addNewContact}
+        onSubmit={updateCurrentContact}
         noValidate
         autoComplete="off"
         sx={{ mt: 1 }}
@@ -71,7 +78,7 @@ const AddContactFrom = ({ closeModal }) => {
           fullWidth
           inputProps={{
             pattern:
-              '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
+              'd{1,4}?[-.s]?(d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
             title:
               'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
           }}
@@ -85,12 +92,12 @@ const AddContactFrom = ({ closeModal }) => {
         <Button
           type="submit"
           onClick={e => {
-            addNewContact(e);
+            updateCurrentContact(e);
             closeModal();
           }}
           autoFocus
         >
-          Add Contact
+          Update Contact
         </Button>
         <Button onClick={closeModal}>Cancel</Button>
       </Box>
@@ -98,8 +105,11 @@ const AddContactFrom = ({ closeModal }) => {
   );
 };
 
-AddContactFrom.propTypes = {
+EditContactForm.propTypes = {
+  contactId: PropTypes.string.isRequired,
+  contactName: PropTypes.string.isRequired,
+  contactNumber: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
 
-export default AddContactFrom;
+export default EditContactForm;
