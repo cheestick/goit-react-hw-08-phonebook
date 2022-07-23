@@ -27,7 +27,7 @@ const App = () => {
           <Route path="register" element={<Signup />} />
         </Route>
         <Route element={<PrivateOutlet />}>
-          <Route path="" element={null} />
+          <Route path="/" element={<h1>Home</h1>} />
           <Route path="contacts" element={<Contacts />} />
         </Route>
         <Route path="*" element={<MissedPage />} />
