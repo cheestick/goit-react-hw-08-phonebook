@@ -7,8 +7,8 @@ const authSlice = createSlice({
     user: null,
     token: null,
     isLoggedIn: false,
-    isError: false,
-    isPending: false,
+    // isError: false,
+    isContactsPending: false,
   },
   reducers: {},
   extraReducers: builder => {
@@ -20,23 +20,21 @@ const authSlice = createSlice({
           state.token = payload.token;
           state.isLoggedIn = true;
           state.isError = false;
-          state.isPending = false;
         }
       )
       .addMatcher(api.endpoints.signUpUser.matchPending, (state, _action) => {
         state.isPending = true;
         state.isLoggedIn = false;
-        state.isError = false;
+        // state.isError = false;
       })
       .addMatcher(api.endpoints.signUpUser.matchRejected, (state, _action) => {
         state.isError = true;
         state.isLoggedIn = false;
-        state.isPending = false;
       })
       .addMatcher(api.endpoints.signInUser.matchPending, (state, _action) => {
         state.isPending = true;
         state.isLoggedIn = false;
-        state.isError = false;
+        // state.isError = false;
       })
       .addMatcher(
         api.endpoints.signInUser.matchFulfilled,
@@ -44,21 +42,27 @@ const authSlice = createSlice({
           state.user = payload.user;
           state.token = payload.token;
           state.isLoggedIn = true;
-          state.isError = false;
-          state.isPending = false;
+          // state.isError = false;
         }
       )
       .addMatcher(api.endpoints.signInUser.matchRejected, (state, _action) => {
         state.isError = true;
         state.isLoggedIn = false;
-        state.isPending = false;
       })
       .addMatcher(
         api.endpoints.fetchCurrentUser.matchFulfilled,
         (state, { payload }) => {
           state.user = payload;
           state.isLoggedIn = true;
-          state.isError = false;
+        }
+      )
+      .addMatcher(
+        api.endpoints.fetchCurrentUser.matchRejected,
+        (state, _action) => {
+          state.user = null;
+          // state.token = null;
+          state.isLoggedIn = false;
+          // state.isError = false;
         }
       )
       .addMatcher(api.endpoints.logOutUser.matchFulfilled, (state, _action) => {

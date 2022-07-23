@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/filterSlice';
 import { useLazyFetchAllContactsQuery } from 'redux/api';
 import { selectIsLoggedIn } from 'redux/authSlice';
-import { List } from '@mui/material';
+import { CircularProgress, List, Snackbar } from '@mui/material';
 
 export default function ContactList() {
   const { value } = useSelector(getFilter);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const [fetchAllUserContacts, { data: contacts, isError }] =
+  const [fetchAllUserContacts, { data: contacts, isError, isLoading }] =
     useLazyFetchAllContactsQuery();
 
   useEffect(() => {
@@ -33,10 +33,19 @@ export default function ContactList() {
     );
 
   return (
-    <List>
-      {filteredContacts?.map(({ id, name, number }) => (
-        <Contact key={id} id={id} name={name} number={number} />
-      ))}
-    </List>
+    <>
+      <List>
+        {filteredContacts?.map(({ id, name, number }) => (
+          <Contact key={id} id={id} name={name} number={number} />
+        ))}
+      </List>
+      <Snackbar
+        open={isLoading}
+        sx={{ width: '10rem' }}
+        autoHideDuration={6000}
+        message="Loading..."
+        action={<CircularProgress />}
+      />
+    </>
   );
 }

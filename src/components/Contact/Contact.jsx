@@ -12,6 +12,8 @@ import {
   ListItemButton,
   ListItemText,
   Typography,
+  Snackbar,
+  CircularProgress,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -22,7 +24,7 @@ import EditContactForm from 'components/EditContactForm';
 export default function Contact({ id, name, number }) {
   const [openModal, setOpenModal] = useState(false);
   const [deleteContactModal, setDeleteContactModal] = useState(false);
-  const [removeContact] = useDeleteContactMutation();
+  const [removeContact, { isLoading }] = useDeleteContactMutation();
 
   const openModalHandler = () => setOpenModal(true);
   const closeModalHandler = () => setOpenModal(false);
@@ -123,6 +125,13 @@ export default function Contact({ id, name, number }) {
           Cancel
         </Button>
       </CustomDialog>
+      <Snackbar
+        open={isLoading}
+        sx={{ width: '10rem' }}
+        autoHideDuration={6000}
+        message="Deleting..."
+        action={<CircularProgress />}
+      />
     </>
   );
 }

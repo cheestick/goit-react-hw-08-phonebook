@@ -14,15 +14,19 @@ const App = () => {
   const hasAccessToken = useSelector(selectCurrentToken);
 
   useEffect(() => {
-    if (hasAccessToken) {
-      fetchCurrentUser();
-    }
+    const refetchUserCredentials = async () => {
+      if (hasAccessToken) {
+        await fetchCurrentUser();
+      }
+    };
+
+    refetchUserCredentials();
   }, [fetchCurrentUser, hasAccessToken]);
 
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Navigate to="login" />} />
+        <Route index element={<Navigate to="contacts" />} />
         <Route element={<PrivateOutlet />}>
           <Route path="contacts" element={<Contacts />} />
         </Route>
