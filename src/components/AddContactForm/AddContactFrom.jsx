@@ -11,13 +11,12 @@ const AddContactFrom = ({ closeModal }) => {
     api.endpoints.fetchAllContacts.useQueryState();
 
   const addNewContact = async e => {
-    e.preventDefault();
     if (isContactAlreadyExist(currentContacts, name)) {
       alert(`${name} is already in contact list`);
-      return;
+      return false;
     }
     await addContact({ name, number });
-    reset();
+    return true;
   };
 
   const isContactAlreadyExist = (contacts, name) => {
@@ -30,6 +29,14 @@ const AddContactFrom = ({ closeModal }) => {
   const handleChange = ({ target: { name, value } }) => {
     name === 'name' && setName(value);
     name === 'number' && setNumber(value);
+  };
+
+  const submitAddFormHandler = async e => {
+    e.preventDefault();
+    if (await addNewContact()) {
+      reset();
+      closeModal();
+    }
   };
 
   const reset = () => {
@@ -82,14 +89,7 @@ const AddContactFrom = ({ closeModal }) => {
           value={number}
           onChange={handleChange}
         />
-        <Button
-          type="submit"
-          onClick={e => {
-            addNewContact(e);
-            closeModal();
-          }}
-          autoFocus
-        >
+        <Button type="submit" onClick={submitAddFormHandler} autoFocus>
           Add Contact
         </Button>
         <Button onClick={closeModal}>Cancel</Button>
