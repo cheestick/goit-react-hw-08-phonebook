@@ -15,14 +15,11 @@ import {
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useSignInUserMutation } from 'redux/api';
-import { useSelector } from 'react-redux';
-import { selectIsPending } from 'redux/authSlice';
 
 export default function SignIn() {
-  const [userSingIn] = useSignInUserMutation();
+  const [userSingIn, { isLoading }] = useSignInUserMutation();
   const [alertOpen, setAlertOpen] = useState(false);
   const navigate = useNavigate();
-  const isPending = useSelector(selectIsPending);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -89,7 +86,7 @@ export default function SignIn() {
           />
           <LoadingButton
             type="submit"
-            loading={isPending}
+            loading={isLoading}
             loadingPosition="start"
             startIcon={<></>}
             fullWidth
