@@ -19,20 +19,26 @@ const EditContactForm = ({
   const [name, setName] = useState(contactName || '');
   const [number, setNumber] = useState(contactNumber || '');
   const [alertOpen, setAlertOpen] = useState(false);
+  const [alertFillOpen, setAlertFillOpen] = useState(false);
   const [updateContact] = useUpdateContactMutation();
   const { currentData: currentContacts } =
     api.endpoints.fetchAllContacts.useQueryState();
 
   const alertCloseHandler = () => setAlertOpen(false);
+  const alertFillCloseHandler = () => setAlertFillOpen(false);
 
   const updateCurrentContact = async updatedData => {
-    if (name === contactName) return true;
-    if (!isContactAlreadyExist(currentContacts, name)) {
-      await updateContact(updatedData);
-      return true;
+    if (name === contactName && number === contactNumber) return true;
+    if (isContactAlreadyExist(currentContacts, name) || name === contactName) {
+      setAlertOpen(true);
+      return false;
     }
-    setAlertOpen(true);
-    return false;
+    if (name === '' || number === '') {
+      setAlertFillOpen(true);
+      return false;
+    }
+    await updateContact(updatedData);
+    return true;
   };
 
   const isContactAlreadyExist = (contacts, name) => {
@@ -122,6 +128,16 @@ const EditContactForm = ({
       >
         <Alert onClose={alertCloseHandler} severity="error">
           User with this name already axist!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={alertFillOpen}
+        onClose={alertFillCloseHandler}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={alertCloseHandler} severity="error">
+          Fill in all input fields!
         </Alert>
       </Snackbar>
     </>

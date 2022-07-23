@@ -14,17 +14,24 @@ const AddContactFrom = ({ closeModal }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [alertOpen, setAlertOpen] = useState(false);
+  const [alertFillOpen, setAlertFillOpen] = useState(false);
   const [addContact] = useAddContactMutation();
   const { currentData: currentContacts } =
     api.endpoints.fetchAllContacts.useQueryState();
 
   const alertCloseHandler = () => setAlertOpen(false);
+  const alertFillCloseHandler = () => setAlertFillOpen(false);
 
   const addNewContact = async e => {
     if (isContactAlreadyExist(currentContacts, name)) {
       setAlertOpen(true);
       return false;
     }
+    if (name === '' || number === '') {
+      setAlertFillOpen(true);
+      return false;
+    }
+
     await addContact({ name, number });
     return true;
   };
@@ -113,6 +120,16 @@ const AddContactFrom = ({ closeModal }) => {
       >
         <Alert onClose={alertCloseHandler} severity="error">
           User with this name already axist!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={alertFillOpen}
+        onClose={alertFillCloseHandler}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={alertCloseHandler} severity="error">
+          Fill in all input fields!
         </Alert>
       </Snackbar>
     </>

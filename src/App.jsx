@@ -23,12 +23,12 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Navigate to="login" />} />
+        <Route element={<PrivateOutlet />}>
+          <Route path="contacts" element={<Contacts />} />
+        </Route>
         <Route element={<ProtectedOutlet />}>
           <Route path="login" element={<Signin />} />
           <Route path="register" element={<Signup />} />
-        </Route>
-        <Route element={<PrivateOutlet />}>
-          <Route path="contacts" element={<Contacts />} />
         </Route>
         <Route path="*" element={<MissedPage />} />
       </Route>
