@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const MissedPage = () => {
   const navigate = useNavigate();
-  setTimeout(() => {
-    navigate('/login');
-  }, 1500);
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate('/login');
+    }, 1500);
+  }, [navigate]);
 
   return (
     <Container maxWidth="sm">
