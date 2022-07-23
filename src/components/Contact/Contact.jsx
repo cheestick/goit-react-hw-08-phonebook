@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useDeleteContactMutation } from 'redux/api';
 import {
   Box,
+  Button,
   Avatar,
   Divider,
   IconButton,
@@ -20,10 +21,19 @@ import EditContactForm from 'components/EditContactForm';
 
 export default function Contact({ id, name, number }) {
   const [openModal, setOpenModal] = useState(false);
+  const [deleteContactModal, setDeleteContactModal] = useState(false);
   const [removeContact] = useDeleteContactMutation();
 
   const openModalHandler = () => setOpenModal(true);
   const closeModalHandler = () => setOpenModal(false);
+
+  const closeDeleteContactModal = () => setDeleteContactModal(false);
+  const openDeleteContactModal = () => setDeleteContactModal(true);
+
+  const deleteContactHandler = _e => {
+    setDeleteContactModal(true);
+    removeContact(id);
+  };
 
   return (
     <>
@@ -44,7 +54,7 @@ export default function Contact({ id, name, number }) {
             <IconButton
               edge="end"
               arial-label="delete"
-              onClick={() => removeContact(id)}
+              onClick={openDeleteContactModal}
             >
               <DeleteIcon />
             </IconButton>
@@ -91,14 +101,27 @@ export default function Contact({ id, name, number }) {
           />
         </ListItemButton>
       </ListItem>
+
       <Divider variant="inset" component="li" />
-      <CustomDialog open={openModal} close={closeModalHandler}>
+
+      <CustomDialog open={openModal} close={() => {}}>
         <EditContactForm
           contactId={id}
           contactName={name}
           contactNumber={number}
           closeModal={closeModalHandler}
         />
+      </CustomDialog>
+
+      <CustomDialog
+        open={deleteContactModal}
+        close={() => {}}
+        title=" Are you sure? You try to delete the contact"
+      >
+        <Button onClick={deleteContactHandler}>Detele anyway</Button>
+        <Button onClick={closeDeleteContactModal} autoFocus>
+          Cancel
+        </Button>
       </CustomDialog>
     </>
   );
