@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CssBaseline, Box, TextField, Button } from '@mui/material';
-import { useUpdateContactMutation } from 'redux/api';
+import { useUpdateContactMutation, api } from 'redux/api';
 
 const EditContactForm = ({
   contactId,
@@ -12,12 +12,35 @@ const EditContactForm = ({
   const [name, setName] = useState(contactName || '');
   const [number, setNumber] = useState(contactNumber || '');
   const [updateContact] = useUpdateContactMutation();
+  const { currentData: currentContacts } =
+    api.endpoints.fetchAllContacts.useQueryState();
 
-  const updateCurrentContact = async e => {
+  const updateCurrentContact = async updatedData => {
+    if (name === contactName) return true;
+    if (!isContactAlreadyExist(currentContacts, name)) {
+      await updateContact(updatedData);
+      return true;
+    }
+    alert(`${name} is already in contact list`);
+    return false;
+  };
+
+  const isContactAlreadyExist = (contacts, name) => {
+    const newContactName = name.toLowerCase();
+    if (contacts.length === 0) return false;
+
+    return contacts.find(({ name }) => name.toLowerCase() === newContactName);
+  };
+
+  const submitFormHandler = async e => {
     e.preventDefault();
     const updatedData = { id: contactId, name, number };
-    await updateContact(updatedData);
-    reset();
+    const isContactUpdated = await updateCurrentContact(updatedData);
+    console.log(isContactUpdated);
+    if (isContactUpdated) {
+      reset();
+      closeModal();
+    }
   };
 
   const handleChange = ({ target: { name, value } }) => {
@@ -76,14 +99,7 @@ const EditContactForm = ({
           value={number}
           onChange={handleChange}
         />
-        <Button
-          type="submit"
-          onClick={e => {
-            updateCurrentContact(e);
-            closeModal();
-          }}
-          autoFocus
-        >
+        <Button type="submit" onClick={submitFormHandler} autoFocus>
           Update Contact
         </Button>
         <Button onClick={closeModal}>Cancel</Button>

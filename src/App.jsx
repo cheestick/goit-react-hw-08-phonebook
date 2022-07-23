@@ -14,7 +14,9 @@ const App = () => {
   const hasAccessToken = useSelector(selectCurrentToken);
 
   useEffect(() => {
-    if (hasAccessToken) fetchCurrentUser();
+    if (hasAccessToken) {
+      fetchCurrentUser();
+    }
   }, [fetchCurrentUser, hasAccessToken]);
 
   return (
@@ -25,7 +27,7 @@ const App = () => {
           <Route path="register" element={<Signup />} />
         </Route>
         <Route element={<PrivateOutlet />}>
-          <Route path="/" element={<h1>Home</h1>} />
+          <Route path="/" element={<></>} />
           <Route path="contacts" element={<Contacts />} />
         </Route>
         <Route path="*" element={<MissedPage />} />

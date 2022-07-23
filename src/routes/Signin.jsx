@@ -91,6 +91,7 @@ export default function SignIn() {
             type="submit"
             loading={isPending}
             loadingPosition="start"
+            startIcon={<></>}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}

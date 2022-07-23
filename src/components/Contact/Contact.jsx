@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDeleteContactMutation } from 'redux/api';
 import {
+  Box,
   Avatar,
   Divider,
   IconButton,
@@ -28,9 +29,10 @@ export default function Contact({ id, name, number }) {
     <>
       <ListItem
         id={id}
+        sx={{ paddingRight: 0 }}
         alignItems="flex-start"
         secondaryAction={
-          <>
+          <Box>
             <IconButton
               arial-label="edit"
               onClick={() => {
@@ -46,7 +48,7 @@ export default function Contact({ id, name, number }) {
             >
               <DeleteIcon />
             </IconButton>
-          </>
+          </Box>
         }
       >
         <ListItemButton>

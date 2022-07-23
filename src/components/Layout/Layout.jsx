@@ -13,7 +13,7 @@ const Layout = () => {
   return (
     <>
       <AppBar position="sticky">
-        <Container maxWidth="xl">
+        <Container maxWidth="sm">
           <Toolbar variant="dense">
             {isLoggedIn && <UserMenu />}
             {!isLoggedIn && (

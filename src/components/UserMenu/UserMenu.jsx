@@ -11,13 +11,13 @@ import {
   Fab,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { Container } from '@mui/system';
 import { deepOrange } from '@mui/material/colors';
 import { useLogOutUserMutation } from 'redux/api';
 import { useAuth } from 'hooks/useAuth';
 import SearchBar from 'components/SearchBar';
 import AddContactForm from 'components/AddContactForm';
 import CustomDialog from 'components/CustomDialog';
+import { useNavigate } from 'react-router-dom';
 
 const stringAvatar = name => ({
   children: `${name[0].toUpperCase()}`,
@@ -28,6 +28,7 @@ const UserMenu = () => {
   const { user } = useAuth();
   const [anchorUserMenu, setAnchorUserMenu] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
 
   const openUserMenuHandler = event => setAnchorUserMenu(event.currentTarget);
   const closeUserMenuHandler = () => setAnchorUserMenu(null);
@@ -35,9 +36,14 @@ const UserMenu = () => {
   const openModalHandler = () => setOpenModal(true);
   const closeModalHandler = () => setOpenModal(false);
 
+  const logOutHandler = async e => {
+    const response = await logOutUser();
+    if (response?.data) navigate('/login');
+  };
+
   return (
     <>
-      <Container maxWidth="sm">
+      <Box sx={{ width: '100%' }}>
         <Box
           sx={{
             display: 'flex',
@@ -79,13 +85,13 @@ const UserMenu = () => {
                 <Typography textAlign="center">{user.email}</Typography>
               </MenuItem>
               <Divider />
-              <MenuItem key="Logout" onClick={logOutUser}>
+              <MenuItem key="Logout" onClick={logOutHandler}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>
             </Menu>
           </Box>
         </Box>
-      </Container>
+      </Box>
 
       <CustomDialog
         title="Add contact"
