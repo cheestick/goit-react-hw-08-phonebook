@@ -15,8 +15,9 @@ const Layout = () => {
       <AppBar position="sticky">
         <Container maxWidth="sm">
           <Toolbar variant="dense">
-            {isLoggedIn && <UserMenu />}
-            {!isLoggedIn && (
+            {isLoggedIn ? (
+              <UserMenu />
+            ) : (
               <Typography
                 component="h2"
                 variant="h6"

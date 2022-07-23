@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { CssBaseline, Box, TextField, Button } from '@mui/material';
+import {
+  CssBaseline,
+  Box,
+  TextField,
+  Button,
+  Snackbar,
+  Alert,
+} from '@mui/material';
 import { useUpdateContactMutation, api } from 'redux/api';
 
 const EditContactForm = ({
@@ -11,9 +18,12 @@ const EditContactForm = ({
 }) => {
   const [name, setName] = useState(contactName || '');
   const [number, setNumber] = useState(contactNumber || '');
+  const [alertOpen, setAlertOpen] = useState(false);
   const [updateContact] = useUpdateContactMutation();
   const { currentData: currentContacts } =
     api.endpoints.fetchAllContacts.useQueryState();
+
+  const alertCloseHandler = () => setAlertOpen(false);
 
   const updateCurrentContact = async updatedData => {
     if (name === contactName) return true;
@@ -21,7 +31,7 @@ const EditContactForm = ({
       await updateContact(updatedData);
       return true;
     }
-    alert(`${name} is already in contact list`);
+    setAlertOpen(true);
     return false;
   };
 
@@ -103,6 +113,17 @@ const EditContactForm = ({
         </Button>
         <Button onClick={closeModal}>Cancel</Button>
       </Box>
+
+      <Snackbar
+        open={alertOpen}
+        onClose={alertCloseHandler}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={alertCloseHandler} severity="error">
+          User with this name already axist!
+        </Alert>
+      </Snackbar>
     </>
   );
 };

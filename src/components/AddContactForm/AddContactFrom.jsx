@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { CssBaseline, Box, TextField, Button } from '@mui/material';
+import {
+  CssBaseline,
+  Box,
+  TextField,
+  Button,
+  Snackbar,
+  Alert,
+} from '@mui/material';
 import { useAddContactMutation, api } from 'redux/api';
 
 const AddContactFrom = ({ closeModal }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const [alertOpen, setAlertOpen] = useState(false);
   const [addContact] = useAddContactMutation();
   const { currentData: currentContacts } =
     api.endpoints.fetchAllContacts.useQueryState();
 
+  const alertCloseHandler = () => setAlertOpen(false);
+
   const addNewContact = async e => {
     if (isContactAlreadyExist(currentContacts, name)) {
-      alert(`${name} is already in contact list`);
+      setAlertOpen(true);
       return false;
     }
     await addContact({ name, number });
@@ -94,6 +104,17 @@ const AddContactFrom = ({ closeModal }) => {
         </Button>
         <Button onClick={closeModal}>Cancel</Button>
       </Box>
+
+      <Snackbar
+        open={alertOpen}
+        onClose={alertCloseHandler}
+        autoHideDuration={4000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={alertCloseHandler} severity="error">
+          User with this name already axist!
+        </Alert>
+      </Snackbar>
     </>
   );
 };
