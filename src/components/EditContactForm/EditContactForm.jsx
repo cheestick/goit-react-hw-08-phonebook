@@ -36,7 +36,6 @@ const EditContactForm = ({
     e.preventDefault();
     const updatedData = { id: contactId, name, number };
     const isContactUpdated = await updateCurrentContact(updatedData);
-    console.log(isContactUpdated);
     if (isContactUpdated) {
       reset();
       closeModal();
