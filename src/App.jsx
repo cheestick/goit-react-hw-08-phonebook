@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Signup, Signin, Contacts } from 'routes';
 import PrivateOutlet from 'PrivateOutlet/PrivateOutlet';
 import { useLazyFetchCurrentUserQuery } from 'redux/api';
@@ -22,12 +22,12 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        <Route index element={<Navigate to="login" />} />
         <Route element={<ProtectedOutlet />}>
           <Route path="login" element={<Signin />} />
           <Route path="register" element={<Signup />} />
         </Route>
         <Route element={<PrivateOutlet />}>
-          <Route path="/" element={<h1>Home</h1>} />
           <Route path="contacts" element={<Contacts />} />
         </Route>
         <Route path="*" element={<MissedPage />} />
